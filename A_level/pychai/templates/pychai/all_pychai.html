@@ -1,0 +1,32 @@
+
+{% extends "layout.html" %} 
+{% block title %} Chai Page {% endblock %} 
+{%block content %}
+{% for chai in chais %}
+<div class="relative w-60 md:mt-24 bg-blue-200 border border-blue-300 p-5 rounded-md shadow-sm h-[50vh] md:m-5 m-5"> 
+   <div class="absolute right-2 top-2 flex space-x-3">
+      <img src="/static/edit.png" alt="edit_chai" class="cursor-pointer h-3 w-3">   
+      <div class="w-[1px] h-4 bg-gray-400"></div>
+      <img src="/static/delete.png" alt="delete_chai" class="cursor-pointer h-3 w-3">
+   </div>
+   <img src={{chai.image}} alt="chai_list" class="rounded-lg h-40 w-full object-cover shadow-lg">
+   <div class="mt-5">
+      <h3 class="text-xl font-semibold text-yellow-800">{{chai.name}}</h3>
+      <h2 class="text-lg font-medium text-slate-700">₹{{chai.price}}</h2>
+      <h2 class="text-sm text-gray-700">Added on: {{chai.date_added}}</h2>
+      <a href={% url 'pychai_detail' chai.id %}>
+         <button>{{chai.type}}-{{chai.id}}</button>
+      </a>
+</div>
+{% endfor %}
+
+<a href="{% url 'add_pychai' %}"  class="absolute right-4 bottom-4 bg-blue-300 hover:bg-blue-400 text-white border-transparent py-2 px-4 rounded-md  focus:outline-none focus:ring-0focus:ring-slate-500 focus:ring-offset-1 ">
+   <div class="flex space-x-2">
+    <img src="/static/add.png" alt="add_chai" class="h-5 w-5"><span>Add New Pychai</span>
+   </div>
+
+</a>
+  
+
+
+{% endblock %}

@@ -1,0 +1,88 @@
+{% extends "layout.html" %}
+{% load widget_tweaks %}
+{% block title %}
+Add Pychai
+{% endblock %}
+{% block content %}
+<div class="mt-20 w-full p-6 mx-auto mb-20">
+   <h2 class="text-3xl font-semibold text-gray-800 mb-6 text-center">Add New Pychai</h2>
+   <form method="POST" enctype="multipart/form-data">
+      {% csrf_token %}
+      <!-- Two-Column Layout -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <!-- Left Column (First 3 Fields) -->
+          <div class="space-y-6">
+              {% for field in form.visible_fields|slice:":3" %}
+              <div>
+                  <label for="{{ field.auto_id }}" class="block text-sm font-medium text-gray-700">
+                      {{ field.label }}
+                  </label>
+                  <div class="mt-1">
+                     {{ field|add_class:"block w-full px-3 py-2 bg-blue-50 border border-blue-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500" }}
+                  </div>
+                  {% if field.errors %}
+                  <p class="mt-2 text-sm text-red-600">{{ field.errors.as_text }}</p>
+                  {% endif %}
+              </div>
+              {% endfor %}
+          </div>
+  
+          <!-- Right Column (Remaining Fields) -->
+          <div class="space-y-4">
+              <!-- Render description and method side by side -->
+              <div class="flex space-x-4">
+                  <div class="w-1/2">
+                      <label for="{{ form.description.auto_id }}" class="block text-sm font-medium text-gray-700">
+                          {{ form.description.label }}
+                      </label>
+                      <div class="mt-1">
+                          {{ form.description|add_class:"w-64 h-40 block px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500" }}
+                      </div>
+                      {% if form.description.errors %}
+                      <p class="mt-2 text-sm text-red-600">{{ form.description.errors.as_text }}</p>
+                      {% endif %}
+                  </div>
+                  <div class="w-1/2">
+                      <label for="{{ form.method.auto_id }}" class="block text-sm font-medium text-gray-700">
+                          {{ form.method.label }}
+                      </label>
+                      <div class="mt-1">
+                          {{ form.method|add_class:"w-64 h-40 block px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500" }}
+                      </div>
+                      {% if form.method.errors %}
+                      <p class="mt-2 text-sm text-red-600">{{ form.method.errors.as_text }}</p>
+                      {% endif %}
+                  </div>
+              </div>
+  
+              <!-- Render all other fields normally -->
+              {% for field in form.visible_fields|slice:"3:" %}
+                {% if field.name != 'description' and field.name != 'method' %}
+                  <div>
+                      <label for="{{ field.auto_id }}" class="block text-sm font-medium text-gray-700">
+                          {{ field.label }}
+                      </label>
+                      <div class="mt-1">
+                         {{ field|add_class:"block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500" }}
+                      </div>
+                      {% if field.errors %}
+                      <p class="mt-2 text-sm text-red-600">{{ field.errors.as_text }}</p>
+                      {% endif %}
+                  </div>
+                {% endif %}
+              {% endfor %}
+          </div>
+      </div>
+  
+      <!-- Submit Buttons -->
+      <div class="flex justify-end space-x-4">
+          <button type="reset" class="px-4 py-2 bg-gray-300 hover:bg-gray-400 rounded-md text-gray-700">
+              Reset
+          </button>
+          <button type="submit" class="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-md">
+              Add Pychai
+          </button>
+      </div>
+  </form>
+</div>
+{% endblock %}
