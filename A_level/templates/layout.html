@@ -1,0 +1,48 @@
+{% load static tailwind_tags %} {% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{% block title %} pychai {% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'style.css' %}" />
+    {% tailwind_css %}
+  </head>
+  <body class="bg-blue-100 outline-none relative">
+    <nav
+      class="fixed top-0 left-0 right-0 z-50 md:flex md:justify-between md:items-center md:p-4 p-3 inline  bg-blue-300 shadow-sm outline-none"
+    >
+      <a href="{% url 'index' %}" class="text-xl font-bold text-gray-800 outline-none">pyChai☕</a>
+
+      <div class="flex justify-between text-center md:gap-4 text-gray-700 mt-3 outline-none">
+        <div class="relative outline-none">
+          <input type="text" placeholder="Search for chai" class="outline-none text-ellipsis w-60 rounded-md focus:outline-none focus:ring-1 focus:ring-blue-600 focus:ring-offset-1 p-1 border-none shadow-sm placeholder:text-gray-500 focus:placeholder:text-gray-200 placeholder:text-sm">
+          <button type="submit" class="absolute right-0 bg-blue-400 px-2 py-1 rounded-md outline-none">Search</button>
+        </div>
+        <a href="{% url 'all_pychai' %}" class="hover:text-gray-900 outline-none"><button
+          class="outline-none bg-blue-200 border border-blue-500 px-3 py-1 rounded-lg hover:bg-blue-500 hover:text-white transition-colors ease-in-out duration-300"
+          >
+          Order Chai
+        </button></a>
+        <button class="hover:text-gray-900">{{user.name}}</button>
+      </div>
+    </nav>
+
+    <footer  class="fixed bottom-0 left-0 right-0 z-50 md:inline inline bg-blue-200">
+      <div class="w-full h-[1px] bg-gray-400"></div>
+      <div class="md:flex md:justify-between md:items-center md:px-5 md:py-2 p-3">
+
+      <div class="text-3xl font-bold text-gray-800">☕</div>
+
+      <div class="flex justify-between text-center md:gap-4 text-gray-700 mt-3">
+        <h3 class="text-gray-600 text-sm">Copyright &copy; 2025 | Ansh singh</h3>
+        
+      </div>
+
+      <button class="py-1 px-3 bg-red-100 border border-red-300 rounded-md focus:ring-1 hover:bg-red-300 focus:ring-red-500 focus:ring-offset-1 focus:outline-none shadow-sm transition-colors ease-in-out duration-300">Logout</button>
+    </div>
+    </footer>
+
+    {% block content %} {% endblock %}
+  </body>
+</html>
