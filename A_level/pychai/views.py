@@ -2,6 +2,10 @@ from django.shortcuts import render
 from .models import ChaiVariety, Store
 from django.shortcuts import redirect, get_object_or_404
 from .forms import PyChaiForm, StoreForm
+from django.contrib.auth.decorators import login_required 
+from django.contrib.auth import login 
+from .forms import UserRegistrationForm
+
 
 # Listing of views here using the models and forms.
 def all_pychai(request):
@@ -19,6 +23,7 @@ def pychai_store(request):
 
 
 # Creation of New Chai or Store using forms.
+@login_required
 def add_pychai(request):
     if request.method == 'POST':
         form = PyChaiForm(request.POST, request.FILES)
@@ -31,6 +36,7 @@ def add_pychai(request):
         form = PyChaiForm()
     return render(request, 'pychai/create_pychai_form.html', {'form': form}) 
 
+@login_required
 def edit_pychai(request, chai_id):
     chai = get_object_or_404(ChaiVariety, pk=chai_id, user=request.user)
     if request.method == 'POST':
@@ -42,6 +48,7 @@ def edit_pychai(request, chai_id):
         form = PyChaiForm(instance=chai)
     return render(request, 'pychai/create_pychai_form.html', {'form': form})   # jinja2 template to be used here.
 
+@login_required
 def delete_pychai(request, chai_id):
     chai = get_object_or_404(ChaiVariety, pk=chai_id, user=request.user)
     if request.method == 'POST':
@@ -49,6 +56,7 @@ def delete_pychai(request, chai_id):
         return redirect('all_pychai')
     return render(request, 'pychai/delete_pychai_confirm.html', {'chai': chai}) # jinja2 template to be used here.
 
+@login_required
 def create_store(request):
     if request.method == 'POST':
         form = StoreForm(request.POST,request.FILES)
@@ -59,8 +67,9 @@ def create_store(request):
             return redirect('pychai_store')
     else:
         form = StoreForm()
-    return render(request, 'pychai/create_store_form.html', {'form': form}) # jinja2 template to be used here.
+    return render(request, 'pychai/create_store_form.html', {'form': form})
 
+@login_required
 def edit_store(request, store_id):
     store = get_object_or_404(Store, pk=store_id, Store_owner=request.user)
     if request.method == 'POST':
@@ -70,14 +79,27 @@ def edit_store(request, store_id):
             return redirect('pychai_store')
     else:
         form = StoreForm(instance=store)
-    return render(request, 'pychai/create_store_form.html', {'form': form}) # jinja2 template to be used here.
+    return render(request, 'pychai/create_store_form.html', {'form': form}) 
 
+@login_required
 def delete_store(request, store_id):
     store = get_object_or_404(Store, pk=store_id, Store_owner=request.user)
     if request.method == 'POST':
         store.delete()
         return redirect('pychai_store')
-    return render(request, 'pychai/delete_store_confirm.html', {'store': store}) # jinja2 template to be used here.
+    return render(request, 'pychai/delete_store_confirm.html', {'store': store}) 
 
+# Authentication views.
 
-
+def register(request):
+    if request.method == 'POST':
+      form = UserRegistrationForm(request.POST)
+      if form.is_valid():
+         user = form.save(commit=False)
+         user.set_password(form.cleaned_data['password1'])
+         user.save()
+         login(request, user)
+         return redirect('all_pychai')
+    else:
+        form = UserRegistrationForm()
+    return render(request, 'registration/register.html', {'form': form}) # jinja2 template to be used here.

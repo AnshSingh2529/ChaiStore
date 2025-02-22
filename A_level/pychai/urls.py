@@ -10,4 +10,7 @@ urlpatterns = [
       # path('create_store/', views.create_store, name='create_store'),
       # path('pychai_store/', views.pychai_store, name='pychai_store'),
       
+      # Authentication urls
+      path('register/', views.register, name='register')
+      
 ]     
