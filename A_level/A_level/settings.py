@@ -41,7 +41,7 @@ INSTALLED_APPS = [
     'tailwind',
     'pychai_theme',
     'django_browser_reload',
-    'widget_tweaks'
+    'widget_tweaks',
 ]
 
 TAILWIND_APP_NAME = 'pychai_theme'

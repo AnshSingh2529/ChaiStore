@@ -29,7 +29,7 @@ def add_pychai(request):
             return redirect('all_pychai')
     else:
         form = PyChaiForm()
-    return render(request, 'pychai/create_pychai_form.html', {'form': form}) # jinja2 template to be used here.
+    return render(request, 'pychai/create_pychai_form.html', {'form': form}) 
 
 def edit_pychai(request, chai_id):
     chai = get_object_or_404(ChaiVariety, pk=chai_id, user=request.user)

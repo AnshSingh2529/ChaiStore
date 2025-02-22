@@ -1,0 +1,87 @@
+{% extends "layout.html" %} 
+{% block title %}
+ Delete Pychai 
+{% endblock %}
+
+{%block content %}
+<div class="flex items-center justify-center min-h-screen">
+  <div class="p-6 bg-blue-50 w-max md:w-[500px] rounded-lg shadow-lg">
+    <h2 class="text-3xl font-semibold text-gray-800 mb-6 text-center">
+      Delete Pychai
+    </h2>
+    <form method="POST">
+      {% csrf_token %}
+      <div class="space-y-6">
+        <div>
+          <label
+            for="name"
+            class="w-full bg-blue-100 border border-blue-200 rounded-md pl-2 flex justify-between items-center text-sm font-medium text-gray-700"
+          >
+            Are you sure you want to delete?
+            <span
+              class="flex justify-between items-center py-1 px-2 bg-stone-800 rounded-md text-white text-center w-max text-ellipsis"
+              >{{ chai.name }}
+              <div class="w-[1px] h-4 bg-gray-400 mx-2"></div>
+              Id: {{chai.id}}</span
+            >
+          </label>
+        </div>
+        <div class="flex justify-between space-x-2">
+          {% comment %} Cancel {% endcomment %}
+          <a
+            href="{% url 'all_pychai' %}"
+            class="flex items-center justify-center w-full px-3 py-2 bg-blue-500 border border-blue-500 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 text-white"
+          >
+            Cancel
+          </a>
+          <button
+            type="submit"
+            id="delete-btn"
+            onclick="showLoader()"
+            class="block w-full px-3 py-2 bg-red-500 border border-red-500 rounded-md shadow-sm focus:outline-none focus:ring-red-500 focus:border-red-500 text-white relative"
+          >
+            <span id="button-text">Delete</span>
+            <span
+              id="loader"
+              class="hidden absolute inset-0 items-center justify-center"
+            >
+              <svg
+                class="animate-spin h-5 w-5 text-white"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+              >
+                <circle
+                  class="opacity-25"
+                  cx="12"
+                  cy="12"
+                  r="10"
+                  stroke="currentColor"
+                  stroke-width="4"
+                ></circle>
+                <path
+                  class="opacity-75"
+                  fill="currentColor"
+                  d="M4 12a8 8 0 018-8v8H4z"
+                ></path>
+              </svg>
+            </span>
+          </button>
+
+          <script>
+            function showLoader() {
+              // Hide the text
+              document.getElementById("button-text").classList.add("hidden");
+
+              // Show the loader by removing 'hidden' and adding 'flex'
+              let loader = document.getElementById("loader");
+              loader.classList.remove("hidden");
+              loader.classList.add("flex");
+            }
+          </script>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+{% endblock %}
