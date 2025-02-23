@@ -1,12 +1,39 @@
 {% extends "layout.html" %}
-
+{% load widget_tweaks %}
 {% block content %}
-<h2>Login Form</h2>
-   <form method='post'>
-      {% csrf_token %}
-      {{ form.as_p }}
-      <button type='submit'>Login</button>
-
-   </form>
-   <p>Dont have an account? <a href={% url 'register' %}>Register here</a></p>
+<div class="flex items-center justify-center min-h-screen">
+   <div class="p-6 bg-blue-50 w-max md:w-max rounded-lg shadow-sm">
+      <form method='post'>
+         {% csrf_token %}
+      <h2 class="text-2xl font-semibold text-center">Login</h2>
+      <div class="space-y-3">
+         <div>
+            <label for="{{ form.username.auto_id }}" class="block text-sm font-medium text-gray-700">
+               {{ form.username.label }}
+            </label>
+            <div class="mt-1">
+               {{ form.username|add_class:"block w-full px-3 py-2 bg-blue-50 border border-blue-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500" }}
+            </div>
+            {% if form.username.errors %}
+            <p class="mt-2 text-sm text-red-600">{{ form.username.errors.as_text }}</p>
+            {% endif %}
+         </div>
+         <div>
+            <label for="{{ form.password.auto_id }}" class="block text-sm font-medium text-gray-700">
+               {{ form.password.label }}
+            </label>
+            <div class="mt-1">
+               {{ form.password|add_class:"block w-full px-3 py-2 bg-blue-50 border border-blue-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500" }}
+            </div>
+            {% if form.password.errors %}
+            <p class="mt-2 text-sm text-red-600">{{ form.password.errors.as_text }}</p>
+            {% endif %}
+         </div>
+      </div>
+      <button type="submit" class="w-full py-2 mt-4 bg-blue-500 text-white rounded-md hover:bg-blue-600">Login</button>
+      <p class="mt-4 text-center text-gray-500">Don't have an account? <a href="{% url 'register' %}" class="text-blue-500 hover:underline">Register here</a></p>
+   </div>
+</form>
+</div>
+</div>
 {% endblock %}

@@ -1,11 +1,76 @@
 {% extends "layout.html" %}
-
+{% load widget_tweaks %}
 {% block content %}
-   <h2>Register Form</h2>
-   <form method='post'>
-      {% csrf_token %}
-      {{ form.as_p }}
-      <button type='submit'>Register</button>
-   </form>
-   <p>Already have an account? <a href={% url 'login' %}>Login here</a></p>
+   <div class="flex items-center justify-center min-h-screen mx-1">
+      <div class="p-6 bg-blue-50 w-max md:w-[400px] rounded-lg shadow-sm h-max">
+         <form method='post'>
+            {% csrf_token %}
+            <h2 class="text-2xl font-semibold text-center">Register</h2>
+            <div class="space-y-3 mt-3">
+               <div class="flex justify-between items-center space-x-2">
+               <div>
+                  <label for="{{ form.username.auto_id }}" class="block text-sm font-medium text-gray-700">
+                     {{ form.username.label }}
+                  </label>
+                  <div class="mt-1">
+                     {{ form.username|add_class:"block w-full px-3 py-1 bg-blue-50 border border-blue-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500" }}
+                  </div>
+                  {% if form.username.errors %}
+                  <p class="mt-2 text-sm text-red-600">{{ form.username.errors.as_text }}</p>
+                  {% endif %}
+               </div>
+               <div>
+                  <label for="{{ form.email.auto_id }}" class="block text-sm font-medium text-gray-700">
+                     {{ form.email.label }}
+                  </label>
+                  <div class="mt-1">
+                     {{ form.email|add_class:"block w-full px-3 py-1 bg-blue-50 border border-blue-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500" }}
+                  </div>
+                  {% if form.email.errors %}
+                  <p class="mt-2 text-sm text-red-600">{{ form.email.errors.as_text }}</p>
+                  {% endif %}
+               </div>
+            </div>
+            <div class="flex justify-between items-center space-x-2">
+               <div>
+                  <label for="{{ form.password1.auto_id }}" class="block text-sm font-medium text-gray-700">
+                     {{ form.password1.label }}
+                  </label>
+
+                  <div class="mt-1">
+                     {{ form.password1|add_class:"block w-full px-3 py-1 bg-blue-50 border border-blue-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500" }}
+                  </div>
+                  {% if form.password1.errors %}
+                  <p class="mt-2 text-sm text-red-600">{{ form.password1.errors.as_text }}</p>
+                  {% endif %}
+               </div>
+               <div>
+                  <label for="{{ form.password2.auto_id }}" class="block text-sm font-medium text-gray-700">
+                     {{ form.password2.label }}
+                  </label>
+                  <div class="mt-1">
+                     {{ form.password2|add_class:"block w-full px-3 py-1 bg-blue-50 border border-blue-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500" }}
+                  </div>
+                  {% if form.password2.errors %}
+                  <p class="mt-2 text-sm text-red-600">{{ form.password2.errors.as_text }}</p>
+                  {% endif %}
+            </div>
+            </div>
+                  {% comment %} Password Validator Check {% endcomment %}
+                  <div class="text-xs text-gray-700">
+                     <p class="mt-1">Password must contain:</p>
+                     <ul class="list-disc list-inside">
+                        <li>At least 8 characters</li>
+                        <li>At least 1 uppercase letter</li>
+                        <li>At least 1 lowercase letter</li>
+                        <li>At least 1 number</li>
+                        <li>At least 1 special character</li>
+                     </ul>
+                  </div>
+            </div>
+            <button type="submit" class="w-full py-1 mt-4 bg-blue-500 text-white rounded-md hover:bg-blue-600">Register</button>
+            <p class="mt-2 text-center text-gray-500 text-sm">Already have an account? <a href="{% url 'login' %}" class="text-blue-500 hover:underline">Login here</a></p>
+         </form>
+      </div>
+   </div>
 {% endblock %}

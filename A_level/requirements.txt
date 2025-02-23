@@ -9,7 +9,9 @@ colorama==0.4.6
 cookiecutter==2.6.0
 django==5.1.6
 django-browser-reload==1.18.0
+django-svg-icons==0.1.2
 django-tailwind==3.8.0
+django-widget-tweaks==1.5.0
 idna==3.10
 jinja2==3.1.5
 markdown-it-py==3.0.0
