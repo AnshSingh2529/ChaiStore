@@ -92,6 +92,7 @@ def delete_store(request, store_id):
 # Authentication views.
 
 def register(request):
+    next_url = request.GET.get('next', '/')
     if request.method == 'POST':
       form = UserRegistrationForm(request.POST)
       if form.is_valid():
@@ -99,7 +100,8 @@ def register(request):
          user.set_password(form.cleaned_data['password1'])
          user.save()
          login(request, user)
-         return redirect('all_pychai')
+         return redirect( next_url )
     else:
         form = UserRegistrationForm()
     return render(request, 'registration/register.html', {'form': form}) # jinja2 template to be used here.
+

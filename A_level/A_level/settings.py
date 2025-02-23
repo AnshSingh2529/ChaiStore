@@ -144,7 +144,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 NPM_BIN_PATH = r"C:\Program Files\nodejs\npm.cmd"
 
 LOGIN_URL = '/accounts/login'
-# LOGOUT_URL = '/accounts/logout'
 
-LOGIN_REDIRECT_URL = '/all_pychai/'
-LOGOUT_REDIRECT_URL = '/all_pychai/'
+
+LOGIN_REDIRECT_URL = '/pychai/'
+LOGOUT_REDIRECT_URL = '/pychai/'
